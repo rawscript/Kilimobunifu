@@ -1,0 +1,422 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   CSS CUSTOM PROPERTIES (Design Tokens)
+   ============================================================ */
+:root {
+  /* Brand Colors */
+  --color-navy: #0A192F;
+  --color-navy-light: #112240;
+  --color-navy-dark: #060f1e;
+  --color-sky: #3498DB;
+  --color-slate: #8892B0;
+  --color-off-white: #F8F9FA;
+
+  /* Semantic */
+  --color-healthy: #2ECC71;
+  --color-warning: #F39C12;
+  --color-critical: #E74C3C;
+
+  /* Glassmorphism Surfaces */
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-bg-subtle: rgba(255, 255, 255, 0.65);
+  --glass-bg-heavy: rgba(255, 255, 255, 0.92);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass-border-subtle: rgba(255, 255, 255, 0.18);
+  --glass-blur: 12px;
+  --glass-blur-lg: 20px;
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.12);
+  --glass-shadow-lg: 0 16px 48px 0 rgba(31, 38, 135, 0.18);
+
+  /* Dark glass variants */
+  --glass-dark-bg: rgba(10, 25, 47, 0.82);
+  --glass-dark-border: rgba(52, 152, 219, 0.25);
+  --glass-dark-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+
+  /* Typography */
+  --font-sans: 'Inter', 'Segoe UI', system-ui, sans-serif;
+
+  /* Spacing & Radius */
+  --radius-card: 16px;
+  --radius-pill: 9999px;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================
+   BASE RESETS & BODY
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--color-navy);
+  background-color: var(--color-off-white);
+}
+
+/* Remove default list styles */
+ul, ol { list-style: none; margin: 0; padding: 0; }
+
+/* ============================================================
+   GLASSMORPHISM UTILITY CLASSES
+   ============================================================ */
+@layer components {
+
+  /* ----- Base glass card ----- */
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--glass-shadow);
+  }
+
+  /* ----- Subtle glass (lower opacity) ----- */
+  .glass-subtle {
+    background: var(--glass-bg-subtle);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--glass-border-subtle);
+    border-radius: var(--radius-card);
+    box-shadow: 0 4px 16px rgba(31, 38, 135, 0.08);
+  }
+
+  /* ----- Heavy glass (near-opaque) ----- */
+  .glass-heavy {
+    background: var(--glass-bg-heavy);
+    backdrop-filter: blur(var(--glass-blur-lg));
+    -webkit-backdrop-filter: blur(var(--glass-blur-lg));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--glass-shadow-lg);
+  }
+
+  /* ----- Dark glass (navy variant) ----- */
+  .glass-dark {
+    background: var(--glass-dark-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-dark-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--glass-dark-shadow);
+    color: #fff;
+  }
+
+  /* ----- Elevated glass (larger shadow) ----- */
+  .glass-elevated {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur-lg));
+    -webkit-backdrop-filter: blur(var(--glass-blur-lg));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--glass-shadow-lg), 0 1px 2px rgba(0,0,0,0.04);
+  }
+
+  /* ----- Hover state for interactive glass elements ----- */
+  .glass-interactive {
+    transition: transform var(--transition-base), box-shadow var(--transition-base), background var(--transition-base);
+  }
+  .glass-interactive:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--glass-shadow-lg);
+    background: rgba(255, 255, 255, 0.92);
+  }
+
+  /* ============================================================
+     BUTTON VARIANTS
+     ============================================================ */
+
+  /* Primary CTA */
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-sm tracking-wide transition-all duration-200;
+    background: linear-gradient(135deg, #3498DB 0%, #2980B9 100%);
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+    border: none;
+  }
+  .btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(52, 152, 219, 0.5);
+  }
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  /* Secondary / Glass CTA */
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-sm tracking-wide transition-all duration-200;
+    background: var(--glass-bg-subtle);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(52, 152, 219, 0.4);
+    color: var(--color-navy);
+  }
+  .btn-ghost:hover {
+    background: rgba(52, 152, 219, 0.1);
+    border-color: rgba(52, 152, 219, 0.7);
+    transform: translateY(-1px);
+  }
+
+  /* Dark variant for hero */
+  .btn-ghost-dark {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full font-semibold text-sm tracking-wide transition-all duration-200;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    color: #fff;
+  }
+  .btn-ghost-dark:hover {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-1px);
+  }
+
+  /* Icon-only button */
+  .btn-icon {
+    @apply inline-flex items-center justify-center w-10 h-10 rounded-full transition-all duration-200;
+    background: var(--glass-bg-subtle);
+    border: 1px solid var(--glass-border);
+  }
+  .btn-icon:hover {
+    background: rgba(52, 152, 219, 0.12);
+    border-color: rgba(52, 152, 219, 0.4);
+    transform: translateY(-1px);
+  }
+
+  /* ============================================================
+     TYPOGRAPHY UTILITIES
+     ============================================================ */
+
+  .text-gradient {
+    background: linear-gradient(135deg, #3498DB 0%, #2ECC71 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-navy {
+    background: linear-gradient(135deg, #0A192F 0%, #3498DB 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ============================================================
+     SENSOR STATUS BADGES
+     ============================================================ */
+
+  .badge-healthy {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium;
+    background: rgba(46, 204, 113, 0.15);
+    color: #1a9c53;
+    border: 1px solid rgba(46, 204, 113, 0.3);
+  }
+
+  .badge-warning {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium;
+    background: rgba(243, 156, 18, 0.15);
+    color: #c47a0a;
+    border: 1px solid rgba(243, 156, 18, 0.3);
+  }
+
+  .badge-critical {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium;
+    background: rgba(231, 76, 60, 0.15);
+    color: #c0392b;
+    border: 1px solid rgba(231, 76, 60, 0.3);
+  }
+
+  .badge-offline {
+    @apply inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-medium;
+    background: rgba(136, 146, 176, 0.15);
+    color: #5a6375;
+    border: 1px solid rgba(136, 146, 176, 0.3);
+  }
+
+  /* ============================================================
+     PULSE DOT (live indicator)
+     ============================================================ */
+
+  .pulse-dot {
+    @apply relative inline-flex h-2.5 w-2.5;
+  }
+  .pulse-dot::before {
+    content: '';
+    @apply absolute inline-flex h-full w-full rounded-full opacity-75 animate-ping;
+    background: var(--color-healthy);
+  }
+  .pulse-dot::after {
+    content: '';
+    @apply relative inline-flex h-2.5 w-2.5 rounded-full;
+    background: var(--color-healthy);
+  }
+
+  /* ============================================================
+     SCROLLBAR
+     ============================================================ */
+
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(136, 146, 176, 0.4) transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: rgba(136, 146, 176, 0.4);
+    border-radius: 9999px;
+  }
+
+  /* ============================================================
+     SECTION / PAGE LAYOUT AIDS
+     ============================================================ */
+
+  .page-section {
+    @apply py-20 px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-container {
+    @apply mx-auto max-w-7xl;
+  }
+
+  .section-title {
+    @apply text-3xl sm:text-4xl font-bold tracking-tight text-navy;
+  }
+
+  .section-subtitle {
+    @apply mt-4 text-lg text-slate-brand leading-relaxed max-w-2xl;
+  }
+
+  /* ============================================================
+     MAP OVERLAY UTILS
+     ============================================================ */
+
+  .map-tooltip {
+    background: var(--glass-bg-heavy);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    box-shadow: var(--glass-shadow-lg);
+    padding: 12px 16px;
+    min-width: 180px;
+    pointer-events: none;
+  }
+
+  /* ============================================================
+     FORM CONTROLS
+     ============================================================ */
+
+  .input-glass {
+    @apply w-full rounded-xl px-4 py-2.5 text-sm font-medium transition-all duration-200 outline-none;
+    background: rgba(255, 255, 255, 0.75);
+    border: 1px solid rgba(136, 146, 176, 0.3);
+    color: var(--color-navy);
+  }
+  .input-glass::placeholder {
+    color: var(--color-slate);
+  }
+  .input-glass:focus {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: var(--color-sky);
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+  }
+
+  .select-glass {
+    @apply input-glass appearance-none cursor-pointer pr-8;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%238892B0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+  }
+
+  /*  ============================================================
+     DIVIDER
+     ============================================================ */
+  .divider {
+    @apply w-full border-t border-gray-200/60 my-8;
+  }
+}
+
+/* ============================================================
+   MAPBOX GLOBAL OVERRIDES
+   ============================================================ */
+.mapboxgl-popup-content {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+.mapboxgl-popup-tip {
+  display: none !important;
+}
+.mapboxgl-ctrl-logo {
+  opacity: 0.6 !important;
+}
+
+/* ============================================================
+   RECHARTS OVERRIDES
+   ============================================================ */
+.recharts-tooltip-wrapper {
+  outline: none !important;
+}
+
+/* ============================================================
+   TRANSITIONS & ANIMATION HELPERS
+   ============================================================ */
+.transition-gpu {
+  will-change: transform;
+}
+
+/* Drawer transition */
+.drawer-enter {
+  transform: translateX(100%);
+}
+.drawer-enter-active {
+  transform: translateX(0);
+  transition: transform 320ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.drawer-exit {
+  transform: translateX(0);
+}
+.drawer-exit-active {
+  transform: translateX(100%);
+  transition: transform 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Overlay fade */
+.overlay-enter {
+  opacity: 0;
+}
+.overlay-enter-active {
+  opacity: 1;
+  transition: opacity 250ms ease;
+}
+.overlay-exit {
+  opacity: 1;
+}
+.overlay-exit-active {
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
